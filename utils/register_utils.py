@@ -73,12 +73,12 @@ def save_user_to_db(user) -> bool:
             )
             db_connection.commit()
             cursor.close()
+            db_pool.pg_connection_pool.putconn(db_connection)
             return True
         except Exception as e:
+            db_pool.pg_connection_pool.putconn(db_connection)
             logging.error(f"Exception while inserting user to database: {e}")
             return False
-        finally:
-            db_pool.pg_connection_pool.putconn(db_connection)
 
 
 def check_user_exists(email: str) -> bool:
