@@ -12,13 +12,11 @@ class User(BaseModel):
 
 
 class UserEmailLogin(BaseModel):
-    id: Optional[int]
     username: str
     password: str
 
 
 class UserEmailSignUp(BaseModel):
-    id: Optional[int | None]
     username: str
     email: str
     password: str

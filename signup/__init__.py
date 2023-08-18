@@ -14,8 +14,8 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
         email = req_body.get("email")
         password = req_body.get("password")
         name = req_body.get("username")
-        diet_type = req_body.get("diet_type")
-        daily_budget = req_body.get("daily_budget")
+        diet_type = "Test_diet_type"#req_body.get("diet_type")
+        daily_budget =  100#req_body.get("daily_budget")
         logging.info(f"new_user: {new_user}")
         input_valid, validation_message = register_utils.validate_input(
             email, password, name, diet_type, daily_budget
