@@ -66,9 +66,9 @@ def save_user_to_db(user) -> bool:
                 (
                     user.email,
                     user.password,
-                    user.name,
-                    user.diet_type,
-                    user.daily_budget,
+                    user.username,
+                    "default_diet_type",
+                    100.0,
                 ),
             )
             db_connection.commit()
@@ -109,17 +109,17 @@ def pw_strong_enough(password: str) -> bool:
 
 
 def authenticate_user(email: str, password: str) -> Tuple[bool, str]:
-    
     user_exists = check_user_exists(email)
     if not user_exists:
         return (False, "User does not exist")
     else:
-        
         db_connection = db_pool.pg_connection_pool.getconn()
         if db_connection:
             try:
                 cursor = db_connection.cursor()
-                cursor.execute("SELECT password FROM public.users WHERE email = %s", (email,))
+                cursor.execute(
+                    "SELECT password FROM public.users WHERE email = %s", (email,)
+                )
                 hashed_password = cursor.fetchone()
                 cursor.close()
                 if hashed_password:
