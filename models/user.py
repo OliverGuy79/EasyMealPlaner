@@ -18,7 +18,7 @@ class UserEmailLogin(BaseModel):
 
 
 class UserEmailSignUp(BaseModel):
-    id: Optional[int]
+    id: Optional[int | None]
     username: str
     email: str
     password: str
