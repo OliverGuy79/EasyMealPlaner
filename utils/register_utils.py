@@ -8,7 +8,7 @@ from password_strength import PasswordPolicy
 
 def validate_input(
     email: str, password: str, name: str, diet_type: str, daily_budget: float
-):
+) -> Tuple[bool, str]:
     if not all([email, password, name, diet_type, daily_budget]):
         return (False, "Missing fields in registration data")
 
@@ -42,7 +42,7 @@ def check_password(password: str, hashed_password: str) -> bool:
     return bcrypt.checkpw(password.encode("utf-8"), hashed_password.encode("utf-8"))
 
 
-def is_valid_email(email):
+def is_valid_email(email) -> bool:
     try:
         # Validate.
         v = validate_email(email)
@@ -56,7 +56,7 @@ def is_valid_email(email):
         return False
 
 
-def save_user_to_db(user):
+def save_user_to_db(user) -> bool:
     db_connection = db_pool.pg_connection_pool.getconn()
     if db_connection:
         try:
